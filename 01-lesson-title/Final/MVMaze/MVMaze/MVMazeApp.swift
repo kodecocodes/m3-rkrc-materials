@@ -34,13 +34,12 @@ import SwiftUI
 
 @main
 struct MVMazeApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }.windowStyle(.volumetric)
-
-        ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
-        }.immersionStyle(selection: .constant(.mixed), in: .mixed)
-    }
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+    }.windowStyle(.volumetric)
+    ImmersiveSpace(id: "ImmersiveSpace") {
+      ImmersiveView()
+    }.immersionStyle(selection: .constant(.mixed), in: .mixed)
+  }
 }
