@@ -10,7 +10,7 @@ import RealityKit
 import RealityKitContent
 
 struct ImmersiveView: View {
-  @State private var goal: Entity?
+  @State private var goalEntity: Entity?
   @State private var goalScored: EventSubscription?
   var body: some View {
     RealityView { content in
@@ -26,8 +26,9 @@ struct ImmersiveView: View {
         )
         content.add(floor)
         // detect a goal
-        goal = content.entities.first?.findEntity(named: "Goal")
-        goalScored = content.subscribe(to: CollisionEvents.Began.self, on: goal) { collisionEvent in
+        goalEntity = content.entities.first?.findEntity(named: "Goal")
+        goalEntity?.components.set(OpacityComponent(opacity: 0.0))
+        goalScored = content.subscribe(to: CollisionEvents.Began.self, on: goalEntity) { collisionEvent in
           print("Goal detected \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
         }
       }
