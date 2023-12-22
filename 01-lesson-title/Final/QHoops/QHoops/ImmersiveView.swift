@@ -11,7 +11,10 @@ import RealityKitContent
 
 struct ImmersiveView: View {
   @State private var goalEntity: Entity?
+  @State private var confetti: Entity?
+  @State private var cheering: Entity?
   @State private var goalScored: EventSubscription?
+  @State private var goalCelebration: Bool = false
   var body: some View {
     RealityView { content in
       // Add the initial RealityKit content
@@ -26,10 +29,25 @@ struct ImmersiveView: View {
         )
         content.add(floor)
         // detect a goal
+        confetti = content.entities.first?.findEntity(named: "ConfettiEmitter")
+        confetti?.components.set(OpacityComponent(opacity: 0.0))
         goalEntity = content.entities.first?.findEntity(named: "Goal")
         goalEntity?.components.set(OpacityComponent(opacity: 0.0))
         goalScored = content.subscribe(to: CollisionEvents.Began.self, on: goalEntity) { collisionEvent in
           print("Goal detected \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
+          goalCelebration = true
+        }
+        /* I need to research this some more.
+        guard let cheering = content.entities.first?.findEntity(named: "cheering"),
+              let resource = try? await AudioFileResource(named: "/Root/Resources/cheering-and-clapping-crowd-1-5995.mp3") else { return }
+        let audioPlaybackController = cheering.prepareAudio(resource)
+        audioPlaybackController.play()
+         */
+      }
+    } update: { content in
+      if let _ = content.entities.first {
+        if goalCelebration == true {
+          confetti?.components.set(OpacityComponent(opacity: 1.0))
         }
       }
     }
