@@ -9,12 +9,12 @@ reorder rootPrims = ["Root", "GridMaterial"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["ConfettiEmitter", "Quiddich_Hoop", "Sphere", "Goal"]
+    reorder nameChildren = ["ConfettiEmitter", "cheering", "Quiddich_Hoop", "Sphere", "Goal"]
     def Xform "ConfettiEmitter"
     {
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (8.037093, 8.037093, 8.037093)
-        float3 xformOp:translate = (0, 4, 0)
+        float3 xformOp:translate = (0, 2.7, -1.5)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def RealityKitComponent "VFXEmitter"
@@ -63,13 +63,13 @@ def Xform "Root"
                     float noiseAnimationSpeed = 2
                     float noiseScale = 1
                     float noiseStrength = 0.03
-                    token opacityOverLife = "GradualFadeInOut"
+                    token opacityOverLife = "Constant"
                     float particleAngle = 180
                     float particleAngleVariation = 180
                     float particleAngularVelocity = 0
                     float particleAngularVelocityVariation = 0.5
                     asset particleImage = @@@lt-grey-square-512@2x.png@@@
-                    double particleLifeSpan = 10
+                    double particleLifeSpan = 20
                     double particleLifeSpanVariation = 0.2
                     float particleMass = 1
                     float particleMassVariation = 0
@@ -284,6 +284,11 @@ def Xform "Root"
                 }
             }
         }
+    }
+
+    def RealityKitAudioFile "cheering"
+    {
+        uniform asset file = @cheering-and-clapping-crowd-1-5995.mp3@
     }
 }
 
