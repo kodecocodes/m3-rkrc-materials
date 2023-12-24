@@ -286,9 +286,20 @@ def Xform "Root"
         }
     }
 
-    def RealityKitAudioFile "cheering"
+    def Xform "ChannelAudio"
     {
-        uniform asset file = @cheering-and-clapping-crowd-1-5995.mp3@
+        float3 xformOp:translate = (0, 1.3190229, -3.2901797)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "ChannelAudio"
+        {
+            uniform token info:id = "RealityKit.ChannelAudio"
+        }
+    }
+
+    def RealityKitAudioFile "cheering_m4a"
+    {
+        uniform asset file = @cheering.m4a@
     }
 }
 
