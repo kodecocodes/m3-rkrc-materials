@@ -49,6 +49,16 @@ struct ImmersiveView: View {
                 mode: .static
               )
               content.add(floor)
+              
+              /* steel ball */
+                let ball = ModelEntity(
+                  mesh: .generateSphere(radius: 0.1),
+                  materials: [SimpleMaterial(color: .white, isMetallic: true)])
+              ball.position.y = 1.0 // 1 meter (m) above the floor
+              ball.position.z = -1.5 // 1.5m in front of the user
+              ball.position.x = 0.5 // 0.5m right of center
+
+              content.add(ball)
             }
         }
     }
