@@ -51,17 +51,52 @@ struct ImmersiveView: View {
               content.add(floor)
               
               /* steel ball */
-                let ball = ModelEntity(
-                  mesh: .generateSphere(radius: 0.1),
-                  materials: [SimpleMaterial(color: .white, isMetallic: true)])
+              let ball = ModelEntity(
+                mesh: .generateSphere(radius: 0.1),
+                materials: [SimpleMaterial(color: .white, isMetallic: true)])
               ball.position.y = 1.0 // 1 meter (m) above the floor
               ball.position.z = -1.5 // 1.5m in front of the user
               ball.position.x = 0.5 // 0.5m right of center
-
+              ball.generateCollisionShapes(recursive: false)
+              // Enable interactions on the entity.
+              ball.components.set(InputTargetComponent())
+              ball.components.set(CollisionComponent(shapes: [.generateSphere(radius: 0.1)]))
+              // gravity to PhysicsBody
+              ball.components[PhysicsBodyComponent.self] = .init(
+                PhysicsBodyComponent(
+                  // mass in kilograms
+                  massProperties: .init(mass: 5.0),
+                  material: .generate(
+                    staticFriction: 0.0,
+                    dynamicFriction: 0.0,
+                    restitution: 0.5
+                  ),
+                  mode: .dynamic
+                )
+              )
+              // editor - need to research this
+              // ball.physicsMotion = PhysicsMotionComponent()
+              // add gravity
+              ball.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
+              // editor - need to research this.
+              //              let visDebug = ModelDebugOptionsComponent(visualizationMode: .textureCoordinates)
+              //              ball.modelDebugOptions = visDebug
               content.add(ball)
             }
         }
+        .gesture(dragGesture)
     }
+  var dragGesture: some Gesture {
+    DragGesture()
+      .targetedToAnyEntity()
+        .onChanged { value in
+          value.entity.position = value.convert(value.location3D, from: .local, to: value.entity.parent!)
+          value.entity.components[PhysicsBodyComponent.self]?.mode = .kinematic
+        }
+        .onEnded { value in
+          value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
+         }
+  }
 }
 
 #Preview {
