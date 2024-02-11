@@ -35,12 +35,12 @@ def Xform "Root"
                 double idleDurationVariation = 0
                 bool isLocal = 0
                 bool isSpawningEnabled = 0
-                bool loops = 1
+                bool loops = 0
                 float particleSpeed = 0.08
                 float particleSpeedVariation = 0.04
                 float radialAmount = 6.283
                 float3 shapeSize = (0.1, 1, 0.1)
-                bool spawnInheritParentColor = 0
+                bool spawnInheritParentColor = 1
                 token spawnOccasion = "OnUpdate"
                 float spawnSpreadFactor = 0
                 float spawnSpreadFactorVariation = 0
@@ -256,6 +256,8 @@ def Xform "Root"
 
         def Material "DefaultMaterial"
         {
+            token outputs:mtlx:surface
+            token outputs:realitykit:vertex
             prepend token outputs:surface.connect = </Root/Goal/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
 
             def Shader "DefaultSurfaceShader"
