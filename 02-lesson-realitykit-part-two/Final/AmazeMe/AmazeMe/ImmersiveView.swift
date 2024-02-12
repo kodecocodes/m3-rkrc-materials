@@ -36,6 +36,7 @@ import RealityKitContent
 
 struct ImmersiveView: View {
   @State var mazeA = Entity()
+  @State var rotationA: Angle = .zero
   
     var body: some View {
         RealityView { content in
@@ -93,7 +94,7 @@ struct ImmersiveView: View {
               mazeA = ModelEntity(mesh: .generateBox(width: mazeX, height: mazeY, depth: mazeZ), materials: [SimpleMaterial()])
               
               mazeA.components.set(CollisionComponent(shapes: [.generateBox(width: mazeX, height: mazeY, depth: mazeZ)]))
-
+              mazeA.components.set(InputTargetComponent())
               mazeA.components[PhysicsBodyComponent.self] = .init(
                 PhysicsBodyComponent(
                   massProperties: .default,
@@ -112,19 +113,17 @@ struct ImmersiveView: View {
        
             }
         }
-        .gesture(dragGesture)
+        .gesture(DragGesture()
+          .targetedToAnyEntity()
+          .onChanged { value in
+            rotationA.degrees = value.translation.height / 20
+            mazeA.transform = Transform(roll: Float(rotationA.radians))
+            // Keep starting distance between models
+            mazeA.position.y = 0.9
+            mazeA.position.z = -1.5
+          }
+        )
     }
-  var dragGesture: some Gesture {
-    DragGesture()
-      .targetedToAnyEntity()
-        .onChanged { value in
-          value.entity.position = value.convert(value.location3D, from: .local, to: value.entity.parent!)
-          value.entity.components[PhysicsBodyComponent.self]?.mode = .kinematic
-        }
-        .onEnded { value in
-          value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
-         }
-  }
 }
 
 #Preview {
