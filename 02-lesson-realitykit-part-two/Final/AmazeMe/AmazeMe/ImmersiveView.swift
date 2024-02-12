@@ -35,11 +35,13 @@ import RealityKit
 import RealityKitContent
 
 struct ImmersiveView: View {
+  @State var mazeA = Entity()
+  
     var body: some View {
         RealityView { content in
             // Add the initial RealityKit content
-            if let scene = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
-                content.add(scene)
+            if let _ = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
+                //content.add(scene)
               
               /* Occluded floor */
               let floor = ModelEntity(mesh: .generatePlane(width: 100, depth: 100), materials: [OcclusionMaterial()])
@@ -82,6 +84,18 @@ struct ImmersiveView: View {
               //              let visDebug = ModelDebugOptionsComponent(visualizationMode: .textureCoordinates)
               //              ball.modelDebugOptions = visDebug
               content.add(ball)
+              
+              // maze piece
+              // dimensions
+              let mazeX: Float = 1.0
+              let mazeY: Float = 0.1
+              let mazeZ: Float = 0.1
+              mazeA = ModelEntity(mesh: .generateBox(width: mazeX, height: mazeY, depth: mazeZ), materials: [SimpleMaterial()])
+              
+              mazeA.position.y = 0.9
+              mazeA.position.z = -1.5
+              content.add(mazeA)
+       
             }
         }
         .gesture(dragGesture)
