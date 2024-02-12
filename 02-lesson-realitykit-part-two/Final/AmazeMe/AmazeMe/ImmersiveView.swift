@@ -147,6 +147,7 @@ struct ImmersiveView: View {
     }
   func occludedBlock(width: Float, height: Float, depth: Float, posX: Float, posY: Float ) -> Entity {
     let entity = ModelEntity(mesh: .generateBox(width: width, height: height, depth: depth))
+    entity.components[OpacityComponent.self] = .init(opacity: 0.0)
     entity.components.set(CollisionComponent(shapes: [.generateBox(width: width, height: height, depth: depth)]))
     entity.components[PhysicsBodyComponent.self] = .init(mode: .static)
     entity.position.x = posX
