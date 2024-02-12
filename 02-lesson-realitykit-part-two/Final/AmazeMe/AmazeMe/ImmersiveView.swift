@@ -68,11 +68,11 @@ struct ImmersiveView: View {
               ball.components[PhysicsBodyComponent.self] = .init(
                 PhysicsBodyComponent(
                   // mass in kilograms
-                  massProperties: .init(mass: 5.0),
+                  massProperties: .init(mass: 50.0),
                   material: .generate(
-                    staticFriction: 0.0,
-                    dynamicFriction: 0.0,
-                    restitution: 0.5
+                    staticFriction: 10.0,
+                    dynamicFriction: 50.0,
+                    restitution: 0.0
                   ),
                   mode: .dynamic
                 )
@@ -160,8 +160,8 @@ struct ImmersiveView: View {
         .gesture(DragGesture()
           .targetedToAnyEntity()
           .onChanged { value in
-            rotationA.degrees = value.translation.height / 20
-            mazeA.transform = Transform(roll: Float(rotationA.radians))
+            rotationA.degrees = value.translation.height / 60
+              mazeA.transform = Transform(roll: Float(rotationA.radians))
             // Keep starting distance between models
             mazeA.position.y = 0.9
             mazeA.position.z = -1.5
