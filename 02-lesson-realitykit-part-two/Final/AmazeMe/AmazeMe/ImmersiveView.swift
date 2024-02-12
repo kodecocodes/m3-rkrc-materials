@@ -39,7 +39,7 @@ struct ImmersiveView: View {
   @State var rotationA: Angle = .zero
   
     var body: some View {
-        RealityView { content in
+        RealityView { content, attachments in
             // Add the initial RealityKit content
             if let _ = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                 //content.add(scene)
@@ -131,8 +131,25 @@ struct ImmersiveView: View {
                 posY: mazeY
               )
               mazeA.addChild(blockLeft)
+              
+              if let mazeAttachment = attachments.entity(for: "maze-attach") {
+                mazeAttachment.position = [mazeX / 2, 0, 2 * mazeZ ]
+                mazeA.addChild(mazeAttachment)
+              }
        
             }
+        } attachments: {
+          Attachment(id: "maze-attach") {
+            VStack {
+              Text("Maze")
+                .font(.largeTitle)
+              Text("Drag to tilt the maze.")
+                .font(.title)
+            }
+            .padding(.all, 20)
+            .frame(maxWidth: 250, maxHeight: 250)
+            .glassBackgroundEffect()
+          }
         }
         .gesture(DragGesture()
           .targetedToAnyEntity()
