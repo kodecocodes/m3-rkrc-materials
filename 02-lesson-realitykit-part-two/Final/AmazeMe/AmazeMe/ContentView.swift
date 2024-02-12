@@ -45,7 +45,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             VStack (spacing: 12) {
-                Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
+              Toggle("Show ImmersiveSpace", systemImage: "mountain.2", isOn: $showImmersiveSpace)
                     .font(.headline)
                     .fontWeight(.black)
                     .foregroundColor(.yellow)
