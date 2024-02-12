@@ -107,7 +107,7 @@ struct ImmersiveView: View {
               )
               
               mazeA.position.y = 0.9
-              mazeA.position.z = -1.5
+              mazeA.position.z = -1.5025
               content.add(mazeA)
        
             }
