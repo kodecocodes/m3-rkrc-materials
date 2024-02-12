@@ -54,7 +54,7 @@ struct ImmersiveView: View {
               
               /* steel ball */
               let ball = ModelEntity(
-                mesh: .generateSphere(radius: 0.1),
+                mesh: .generateSphere(radius: 0.05),
                 materials: [SimpleMaterial(color: .white, isMetallic: true)])
               ball.position.y = 1.0 // 1 meter (m) above the floor
               ball.position.z = -1.5 // 1.5m in front of the user
@@ -62,7 +62,7 @@ struct ImmersiveView: View {
               ball.generateCollisionShapes(recursive: false)
               // Enable interactions on the entity.
               ball.components.set(InputTargetComponent())
-              ball.components.set(CollisionComponent(shapes: [.generateSphere(radius: 0.1)]))
+              ball.components.set(CollisionComponent(shapes: [.generateSphere(radius: 0.05)]))
               // gravity to PhysicsBody
               ball.components[PhysicsBodyComponent.self] = .init(
                 PhysicsBodyComponent(
@@ -91,6 +91,20 @@ struct ImmersiveView: View {
               let mazeY: Float = 0.1
               let mazeZ: Float = 0.1
               mazeA = ModelEntity(mesh: .generateBox(width: mazeX, height: mazeY, depth: mazeZ), materials: [SimpleMaterial()])
+              
+              mazeA.components.set(CollisionComponent(shapes: [.generateBox(width: mazeX, height: mazeY, depth: mazeZ)]))
+
+              mazeA.components[PhysicsBodyComponent.self] = .init(
+                PhysicsBodyComponent(
+                  massProperties: .default,
+                  material: .generate(
+                    staticFriction: 0.8,
+                    dynamicFriction: 0.0,
+                    restitution: 0.0
+                  ),
+                  mode: .kinematic
+                )
+              )
               
               mazeA.position.y = 0.9
               mazeA.position.z = -1.5
