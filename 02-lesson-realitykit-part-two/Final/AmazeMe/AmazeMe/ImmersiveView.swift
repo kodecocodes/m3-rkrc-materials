@@ -136,6 +136,12 @@ struct ImmersiveView: View {
                 mazeAttachment.position = [mazeX / 2, 0, 2 * mazeZ ]
                 mazeA.addChild(mazeAttachment)
               }
+              
+              /* Fulcrum */
+              let fulcrum = ModelEntity(mesh: .generateCone(height: 0.2, radius: 0.1), materials: [SimpleMaterial()])
+              fulcrum.position.y = 0.75
+              fulcrum.position.z = -1.5
+              content.add(fulcrum)
        
             }
         } attachments: {
