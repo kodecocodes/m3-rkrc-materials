@@ -110,6 +110,27 @@ struct ImmersiveView: View {
               mazeA.position.y = 0.9
               mazeA.position.z = -1.5025
               content.add(mazeA)
+              
+              /* DRY */
+              let blockRight = occludedBlock(
+                width: mazeY,
+                height: mazeY * 2,
+                depth: mazeY * 2,
+                posX: mazeX / 2 + mazeY / 2,
+                posY: mazeY
+              )
+              mazeA.addChild(blockRight)
+              
+              let blockLeft = occludedBlock(
+                width: mazeY,
+                height: mazeY * 2,
+                depth: mazeY * 2,
+                posX: -(
+                  mazeX / 2 + mazeY / 2
+                ),
+                posY: mazeY
+              )
+              mazeA.addChild(blockLeft)
        
             }
         }
@@ -124,6 +145,14 @@ struct ImmersiveView: View {
           }
         )
     }
+  func occludedBlock(width: Float, height: Float, depth: Float, posX: Float, posY: Float ) -> Entity {
+    let entity = ModelEntity(mesh: .generateBox(width: width, height: height, depth: depth))
+    entity.components.set(CollisionComponent(shapes: [.generateBox(width: width, height: height, depth: depth)]))
+    entity.components[PhysicsBodyComponent.self] = .init(mode: .static)
+    entity.position.x = posX
+    entity.position.y = posY
+    return entity
+  }
 }
 
 #Preview {
