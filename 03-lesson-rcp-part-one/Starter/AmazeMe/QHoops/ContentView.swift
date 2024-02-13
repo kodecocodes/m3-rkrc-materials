@@ -44,15 +44,6 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            RealityView { content in
-                // Add the initial RealityKit content
-                if let scene = try? await Entity(named: "Scene", in: realityKitContentBundle) {
-                    content.add(scene)
-                }
-            } update: { content in
-                // Update the RealityKit content when SwiftUI state changes
-
-            }
             VStack (spacing: 12) {
                 Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
                     .font(.headline)
