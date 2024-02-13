@@ -5,17 +5,19 @@
     upAxis = "Y"
 )
 
-reorder rootPrims = ["Root", "GridMaterial"]
+reorder rootPrims = ["Root", "Red_PU_Leather"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Sphere", "Quiddich_hoop", "Cylinder"]
+    reorder nameChildren = ["Red_PU_Leather", "Sphere", "Quiddich_hoop"]
     def Sphere "Sphere" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        rel material:binding = </Root/Sphere/DefaultMaterial>
+        rel material:binding = </Root/RedPULeather> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
         double radius = 0.1
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
@@ -87,6 +89,92 @@ def Xform "Root"
                     token outputs:surface
                 }
             }
+        }
+    }
+
+    def "RedPULeather" (
+        active = true
+        prepend references = @RedPULeather.usdz@
+    )
+    {
+        color3f inputs:Basecolor_Tint (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-56.812614, 67.17455)
+                    float2 sizeInSubgraph = (160.5, 53)
+                    int stackingOrderInSubgraph = 2336
+                }
+            }
+        )
+        float2 inputs:UV_Scale (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-725.2588, 351.55255)
+                    float2 sizeInSubgraph = (138.5, 53)
+                    int stackingOrderInSubgraph = 2272
+                }
+            }
+        )
+        float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+
+        over "Dot"
+        {
+            float2 ui:nodegraph:node:size = (44, 18)
+        }
+
+        over "multiply"
+        {
+            float2 ui:nodegraph:node:size = (60, 36)
+        }
+
+        over "add"
+        {
+            float2 ui:nodegraph:node:size = (61.5, 36.5)
+        }
+
+        over "PreviewSurface"
+        {
+            float2 ui:nodegraph:node:size = (148.5, 199)
+        }
+
+        over "Mix"
+        {
+            float2 ui:nodegraph:node:size = (109, 145)
+        }
+
+        over "Swizzle"
+        {
+            float2 ui:nodegraph:node:size = (133.5, 40)
+        }
+
+        over "Swizzle_1"
+        {
+            float2 ui:nodegraph:node:size = (145.5, 53)
+        }
+
+        over "Multiply_1"
+        {
+            float2 ui:nodegraph:node:size = (60, 36)
+        }
+
+        over "BaseColor"
+        {
+            float2 ui:nodegraph:node:size = (158.5, 235)
+        }
+
+        over "Roughness"
+        {
+            float2 ui:nodegraph:node:size = (158.5, 235)
+        }
+
+        over "Metallic"
+        {
+            float2 ui:nodegraph:node:size = (158.5, 235)
+        }
+
+        over "Normal"
+        {
+            float2 ui:nodegraph:node:size = (158.5, 235)
         }
     }
 }

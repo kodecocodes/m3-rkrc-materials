@@ -15,7 +15,8 @@
     "objectMetadataList" : [
       [
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
-        "Root"
+        "Root",
+        "Sphere"
       ],
       {
         "isExpanded" : true,
@@ -25,6 +26,24 @@
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
         "Root",
         "Quiddich_hoop"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "1D572CEB-057A-41C3-B575-04C37501A3C0",
+        "Root",
+        "Quiddich_hoop",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "1D572CEB-057A-41C3-B575-04C37501A3C0",
+        "Root"
       ],
       {
         "isExpanded" : true,

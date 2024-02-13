@@ -9,7 +9,7 @@ reorder rootPrims = ["Root", "GridMaterial"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["ConfettiEmitter", "cheering", "Quiddich_Hoop", "Sphere", "Goal"]
+    reorder nameChildren = ["ConfettiEmitter", "Quiddich_Hoop", "Sphere", "Goal", "ChannelAudio", "cheering_m4a", "leather"]
     def Xform "ConfettiEmitter"
     {
         quatf xformOp:orient = (1, 0, 0, 0)
@@ -167,7 +167,9 @@ def Xform "Root"
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        rel material:binding = </Root/Sphere/DefaultMaterial>
+        rel material:binding = </Root/Sphere/DefaultMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
         double radius = 0.1
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
@@ -176,7 +178,11 @@ def Xform "Root"
 
         def Material "DefaultMaterial"
         {
+            token outputs:mtlx:surface
+            token outputs:realitykit:vertex
             prepend token outputs:surface.connect = </Root/Sphere/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 109.5)
+            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
 
             def Shader "DefaultSurfaceShader"
             {
