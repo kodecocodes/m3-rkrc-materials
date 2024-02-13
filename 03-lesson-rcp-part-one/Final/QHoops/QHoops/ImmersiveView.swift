@@ -40,6 +40,15 @@ struct ImmersiveView: View {
             // Add the initial RealityKit content
             if let scene = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                 content.add(scene)
+              
+              /* Occluded floor */
+              let floor = ModelEntity(mesh: .generatePlane(width: 100, depth: 100), materials: [OcclusionMaterial()])
+              floor.generateCollisionShapes(recursive: false)
+              floor.components[PhysicsBodyComponent.self] = .init(
+                massProperties: .default,
+                mode: .static
+              )
+              content.add(floor)
             }
         }
     }
