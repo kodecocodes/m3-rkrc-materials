@@ -51,7 +51,16 @@ struct ImmersiveView: View {
               content.add(floor)
             }
         }
+        .gesture(dragGesture)
     }
+  var dragGesture: some Gesture {
+    DragGesture()
+      .targetedToAnyEntity()
+      .onChanged { value in
+        value.entity.position = value.convert(value.location3D, from: .local, to: value.entity.parent!)
+        value.entity.components[PhysicsBodyComponent.self]?.mode = .kinematic
+      }
+  }
 }
 
 #Preview {
