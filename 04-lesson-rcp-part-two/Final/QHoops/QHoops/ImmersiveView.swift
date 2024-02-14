@@ -52,6 +52,7 @@ struct ImmersiveView: View {
             }
         }
         .gesture(dragGesture)
+        .gesture(tapGesture)
     }
   var dragGesture: some Gesture {
     DragGesture()
@@ -59,6 +60,15 @@ struct ImmersiveView: View {
       .onChanged { value in
         value.entity.position = value.convert(value.location3D, from: .local, to: value.entity.parent!)
         value.entity.components[PhysicsBodyComponent.self]?.mode = .kinematic
+      }
+  }
+  var tapGesture: some Gesture {
+    TapGesture()
+      .targetedToAnyEntity()
+      .onEnded { value in
+        // do nothing
+        value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
+        value.entity.components[PhysicsMotionComponent.self]?.linearVelocity = [0, 8,-5]
       }
   }
 }
