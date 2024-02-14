@@ -16,6 +16,16 @@
       [
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
         "Root",
+        "Quiddich_hoop",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "1D572CEB-057A-41C3-B575-04C37501A3C0",
+        "Root",
         "Sphere"
       ],
       {
@@ -25,11 +35,14 @@
       [
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
         "Root",
-        "Quiddich_hoop"
+        "ChannelAudio"
       ],
       {
-        "isExpanded" : true,
-        "isLocked" : false
+        "isExpanded" : false,
+        "isLocked" : false,
+        "selectedAudioFilePrim" : {
+          "string" : "\/Root\/cheering_m4a"
+        }
       },
       [
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
@@ -51,8 +64,7 @@
       [
         "1D572CEB-057A-41C3-B575-04C37501A3C0",
         "Root",
-        "Quiddich_hoop",
-        "Materials"
+        "Quiddich_hoop"
       ],
       {
         "isExpanded" : true,

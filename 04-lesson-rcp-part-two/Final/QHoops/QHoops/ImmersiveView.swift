@@ -67,10 +67,17 @@ struct ImmersiveView: View {
           }
           confetti = content.entities.first?.findEntity(named: "ConfettiEmitter")
           confetti?.components.set(OpacityComponent(opacity: 0.0))
+          
+          /* Set up audio for goal scored */
+          cheering = content.entities.first?.findEntity(named: "ChannelAudio")
+          audio = try? await AudioFileResource(named: "/Root/cheering_m4a", from: "Immersive.usda", in: realityKitContentBundle)
         } update: { content in
           if let _ = content.entities.first {
             if goalCelebration == true {
               confetti?.components.set(OpacityComponent(opacity: 1.0))
+              if let audioPlaybackControl = cheering?.prepareAudio(audio!) {
+                audioPlaybackControl.play()
+              }
             }
           }
         }

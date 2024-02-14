@@ -5,11 +5,11 @@
     upAxis = "Y"
 )
 
-reorder rootPrims = ["Root", "Red_PU_Leather"]
+reorder rootPrims = ["Root", "cheering_m4a"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Sphere", "Quiddich_hoop", "RedPULeather", "Goal", "ConfettiEmitter"]
+    reorder nameChildren = ["Sphere", "Quiddich_hoop", "RedPULeather", "Goal", "ConfettiEmitter", "ChannelAudio", "cheering_m4a"]
     def Sphere "Sphere" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -329,6 +329,14 @@ def Xform "Root"
                 {
                 }
             }
+        }
+    }
+
+    def Xform "ChannelAudio"
+    {
+        def RealityKitComponent "ChannelAudio"
+        {
+            uniform token info:id = "RealityKit.ChannelAudio"
         }
     }
 
