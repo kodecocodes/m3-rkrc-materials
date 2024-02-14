@@ -58,6 +58,7 @@ def Xform "Root"
 
         def RealityKitComponent "RigidBody"
         {
+            bool gravityEnabled = 1
             uniform token info:id = "RealityKit.RigidBody"
 
             def RealityKitStruct "massFrame"
