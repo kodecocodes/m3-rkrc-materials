@@ -39,6 +39,8 @@ struct ImmersiveView: View {
   @State private var goalScored: EventSubscription?
   @State private var goalCelebration: Bool = false
   @State private var confetti: Entity?
+  @State private var cheering: Entity?
+  @State private var audio: AudioFileResource?
   
     var body: some View {
         RealityView { content in
