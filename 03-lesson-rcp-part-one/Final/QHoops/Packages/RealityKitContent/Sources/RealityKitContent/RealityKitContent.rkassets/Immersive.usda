@@ -9,7 +9,7 @@ reorder rootPrims = ["Root", "Red_PU_Leather"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Red_PU_Leather", "Sphere", "Quiddich_hoop"]
+    reorder nameChildren = ["Sphere", "Quiddich_hoop", "RedPULeather", "Cylinder"]
     def Sphere "Sphere" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -147,7 +147,7 @@ def Xform "Root"
 
     def "RedPULeather" (
         active = true
-        prepend references = @RedPULeather.usdz@
+        references = @RedPULeather.usdz@
     )
     {
         color3f inputs:Basecolor_Tint (

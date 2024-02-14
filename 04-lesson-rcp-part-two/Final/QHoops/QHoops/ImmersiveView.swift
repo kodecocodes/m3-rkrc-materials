@@ -35,6 +35,9 @@ import RealityKit
 import RealityKitContent
 
 struct ImmersiveView: View {
+  @State private var goalEntity: Entity?
+  @State private var goalScored: EventSubscription?
+  @State private var goalCelebration: Bool = false
     var body: some View {
         RealityView { content in
             // Add the initial RealityKit content
@@ -50,6 +53,14 @@ struct ImmersiveView: View {
               )
               content.add(floor)
             }
+          
+          // detect a goal
+          goalScored = content.subscribe(to: CollisionEvents.Began.self, on: goalEntity) { collisionEvent in
+            if collisionEvent.entityA.name == "Goal" {
+              print("Goal detected \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
+              goalCelebration = true
+            }
+          }
         }
         .gesture(dragGesture)
         .gesture(tapGesture)
@@ -68,7 +79,7 @@ struct ImmersiveView: View {
       .onEnded { value in
         // do nothing
         value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
-        value.entity.components[PhysicsMotionComponent.self]?.linearVelocity = [0, 8,-5]
+        value.entity.components[PhysicsMotionComponent.self]?.linearVelocity = [0, 7,-5]
       }
   }
 }
