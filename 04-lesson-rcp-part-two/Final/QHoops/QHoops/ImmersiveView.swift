@@ -55,11 +55,11 @@ struct ImmersiveView: View {
             }
           
           // detect a goal
+          goalEntity = content.entities.first?.findEntity(named: "Goal")
+          goalEntity?.components.set(OpacityComponent(opacity: 0.0))
           goalScored = content.subscribe(to: CollisionEvents.Began.self, on: goalEntity) { collisionEvent in
-            if collisionEvent.entityA.name == "Goal" {
               print("Goal detected \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
               goalCelebration = true
-            }
           }
         }
         .gesture(dragGesture)
