@@ -38,6 +38,8 @@ struct ImmersiveView: View {
   @State private var goalEntity: Entity?
   @State private var goalScored: EventSubscription?
   @State private var goalCelebration: Bool = false
+  @State private var confetti: Entity?
+  
     var body: some View {
         RealityView { content in
             // Add the initial RealityKit content
@@ -60,6 +62,14 @@ struct ImmersiveView: View {
           goalScored = content.subscribe(to: CollisionEvents.Began.self, on: goalEntity) { collisionEvent in
               print("Goal detected \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
               goalCelebration = true
+          }
+          confetti = content.entities.first?.findEntity(named: "ConfettiEmitter")
+          confetti?.components.set(OpacityComponent(opacity: 0.0))
+        } update: { content in
+          if let _ = content.entities.first {
+            if goalCelebration == true {
+              confetti?.components.set(OpacityComponent(opacity: 1.0))
+            }
           }
         }
         .gesture(dragGesture)

@@ -9,7 +9,7 @@ reorder rootPrims = ["Root", "Red_PU_Leather"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Red_PU_Leather", "Sphere", "Quiddich_hoop"]
+    reorder nameChildren = ["Sphere", "Quiddich_hoop", "RedPULeather", "Goal", "ConfettiEmitter"]
     def Sphere "Sphere" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -147,7 +147,7 @@ def Xform "Root"
 
     def "RedPULeather" (
         active = true
-        prepend references = @RedPULeather.usdz@
+        references = @RedPULeather.usdz@
     )
     {
         color3f inputs:Basecolor_Tint (
@@ -279,6 +279,52 @@ def Xform "Root"
                 token shapeType = "Box"
 
                 def RealityKitStruct "pose"
+                {
+                }
+            }
+        }
+    }
+
+    def Xform "ConfettiEmitter"
+    {
+        float3 xformOp:scale = (9, 9, 9)
+        float3 xformOp:translate = (0, 2.7, -1.5)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "VFXEmitter"
+        {
+            token info:id = "RealityKit.VFXEmitter"
+
+            def RealityKitStruct "currentState"
+            {
+                token birthDirection = "Constant"
+                float3 emissionDirection = (0, -1, 0)
+                bool loops = 0
+                float particleSpeed = 0.08
+                float3 shapeSize = (0.1, 1, 0.1)
+                bool spawnInheritParentColor = 0
+                token spawnOccasion = "OnUpdate"
+
+                def RealityKitStruct "mainEmitter"
+                {
+                    float3 billboardAxis = (0, -1, 0)
+                    float birthRate = 500
+                    float colorEvolutionPower = 0
+                    float4 endColorA = (0.0013006331, 0.032195132, 1, 1)
+                    bool isAnimated = 0
+                    float noiseAnimationSpeed = 0
+                    float noiseStrength = 0.03
+                    token opacityOverLife = "Constant"
+                    asset particleImage = @@@grey-square-512@2x.png@@@
+                    double particleLifeSpan = 20
+                    float particleMass = 5
+                    float sizeMultiplierAtEndOfLifespan = 0.8
+                    float sizeMultiplierAtEndOfLifespanPower = 10
+                    bool useEndColor = 0
+                    bool useEndColorRange = 0
+                }
+
+                def RealityKitStruct "spawnedEmitter"
                 {
                 }
             }
