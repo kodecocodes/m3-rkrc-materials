@@ -77,13 +77,7 @@ struct ImmersiveView: View {
                   mode: .dynamic
                 )
               )
-              // editor - need to research this
-              // ball.physicsMotion = PhysicsMotionComponent()
-              // add gravity
               ball.components[PhysicsBodyComponent.self]?.isAffectedByGravity = true
-              // editor - need to research this.
-              //              let visDebug = ModelDebugOptionsComponent(visualizationMode: .textureCoordinates)
-              //              ball.modelDebugOptions = visDebug
               content.add(ball)
               
               // maze piece
