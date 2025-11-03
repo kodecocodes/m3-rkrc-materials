@@ -173,7 +173,6 @@ struct ImmersiveView: View {
   }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     ImmersiveView()
-        .previewLayout(.sizeThatFits)
 }
